@@ -1,64 +1,30 @@
 
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include "libftprintf.h"
 
-char *ft_itoa(int value, char *str, int base) {
-    char *rc = str;
-    char *ptr;
-    char *low;
-    // Handle invalid base
-    if (base < 2 || base > 36) {
-        *str = '\0';
-        return str;
-    }
+void	print_ptr(void *ptr)
+{
+	unsigned long long int	num;
+	char					*result;
 
-    // Handle negative numbers for base 10
-    int sign = 0;
-    if (value < 0 && base == 10) {
-        sign = 1;
-        value = -value;
-    }
-
-    ptr = str;
-    do {
-        int digit = value % base;
-        *ptr++ = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
-        value /= base;
-    } while (value);
-
-    if (sign)
-        *ptr++ = '-';
-
-    *ptr = '\0';
-
-    // Reverse the string
-    for (low = str, --ptr; low < ptr; ++low, --ptr) {
-        char tmp = *low;
-        *low = *ptr;
-        *ptr = tmp;
-    }
-    return rc;
+	// char					str[32];
+	num = (unsigned long long int)ptr;
+	result = decimal_to_hexadecimal(num, 'x');
+	if (result == NULL)
+	{
+		return ;
+	}
+	write(1, result, ft_strlen(result));
+	write(1, "\n", 1);
+	printf("%p\n", result);
 }
 
-void print_ptr(void *ptr)
+int	main(void)
 {
-    unsigned long long int num = (unsigned long long int)ptr;
-    char str[32];
-    char *result = ft_itoa(num, str, 16);
-    if (result == NULL)
-    {
-        return;
-    }
-    write(1, result, strlen(result));
-    write(1, "\n", 1);
-}
+	int	n;
+	int	*ptr;
 
-
-int main(void)
-{
-    int n = 42;
-    int *ptr = &n;
-    print_ptr(ptr);
-    return 0;   
+	n = 42;
+	ptr = &n;
+	print_ptr(ptr);
+	return (0);
 }

@@ -79,11 +79,11 @@ char	*decimal_to_hexadecimal(int integer, char letter_size)
 	return (hexa);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	char	*h;
 
 	h = decimal_to_hexadecimal(-2147, 'x'); // 834
 	printf("%s", h);
 	// free(h);
-}
+} */

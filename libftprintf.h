@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include "libft/libft.h"
+#include <stdio.h>
 
 char	*decimal_to_hexadecimal(int integer, char letter_size);
 
