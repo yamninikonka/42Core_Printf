@@ -13,7 +13,8 @@
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
-# include <unistd.h>
+#include <unistd.h>
+#include <stdarg.h>
 #include "libft/libft.h"
 
 char	*decimal_to_hexadecimal(int integer, char letter_size);
