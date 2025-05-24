@@ -10,70 +10,44 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 void	ft_printf(const char *format, ...)
 {
-	va_list	args;
+	va_list		args;
+	const char	*format_specifiers;
+	const char	*embedded_specifier_start_pos;
+	char		*parsed_embedded_specifier;
 
+	format_specifiers = "cspdiuxX";
+	parsed_embedded_specifier = NULL;
 	va_start(args, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
-			switch (*format)
-			{
-			case 'c':
-			{
-				'print character';
-				ft_putchar_fd(va_arg(args, char), 1);
-				break ;
-			}
-			case 's':
-			{
-				'print string';
-				ft_putstr_fd(va_arg(args, char *), 1);
-				break ;
-			}
-			case 'p':
-			{
-				'print pointer address';
-				break ;
-			}
-			case ('d' || 'i'):
-			{
-				'implement code logic to print integer';
-				ft_putnbr_fd(va_arg(args, int), 1);
-				break ;
-			}
-			case 'u':
-			{
-				'print unsigned decimal in base 10';
-				ft_putnbr_fd((unsigned int)va_arg(args, int), 1);
-				break ;
-			}
-			case 'x':
-			{
-				'print hexadecimal lowercase format';
-				hexadecinmal(va_arg(args, int), letter_size = 'x');
-				break ;
-			}
-			case 'X':
-			{
-				'print hexadecimal uppercase format';
-				hexadecinmal(va_arg(args, int), letter_size = 'X');
-				break ;
-			}
-			case '%':
-			{
+			if (*format == '%')
 				write(1, "%", 1);
-				break ;
-			}
-			default:
+			else
 			{
-				'raise error';
-			}
+				embedded_specifier_start_pos = format;
+				while (ft_isalpha(*format) == 0)
+				{
+					format++;
+				}
+				if (ft_strchr(format_specifiers, *format) != NULL)
+				{
+					parsed_embedded_specifier = ft_substr(embedded_specifier_start_pos,
+							0, (ft_strlen(embedded_specifier_start_pos)
+								- ft_strlen(format)) + 1);
+					parse_args(parsed_embedded_specifier, args);
+					parsed_embedded_specifier = NULL;
+				}
+				// else
+				// {
+				// 	// raise error
+				// }
 			}
 		}
 		else
@@ -83,4 +57,11 @@ void	ft_printf(const char *format, ...)
 		format++;
 	}
 	va_end(args);
+}
+
+int	main(void)
+{
+	// printf("------\n");
+	ft_printf("---\n%c\n%s\n%d\n%i\n%u\n%x\n%X\n%%\n---\n", 't', "yamini", 21,
+		12, -1, 21, 21);
 }

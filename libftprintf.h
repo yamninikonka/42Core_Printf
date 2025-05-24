@@ -19,5 +19,7 @@
 #include <stdio.h>
 
 char	*decimal_to_hexadecimal(int integer, char letter_size);
+void	parse_args(char *specifier, va_list args);
+void	validate_format(const char *format);
 
 #endif

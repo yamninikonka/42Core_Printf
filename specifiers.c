@@ -18,13 +18,13 @@ void	print_ptr(void *ptr)
 	printf("%p\n", result);
 }
 
-int	main(void)
-{
-	int	n;
-	int	*ptr;
+// int	main(void)
+// {
+// 	int	n;
+// 	int	*ptr;
 
-	n = 42;
-	ptr = &n;
-	print_ptr(ptr);
-	return (0);
-}
+// 	n = 42;
+// 	ptr = &n;
+// 	print_ptr(ptr);
+// 	return (0);
+// }
