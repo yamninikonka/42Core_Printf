@@ -12,16 +12,10 @@
 
 #include "libftprintf.h"
 
-void	ft_printf(const char *format, ...)
+static int	print_formatted_data_to_stdout(const char *format, va_list args)
 {
-	va_list		args;
-	const char	*format_specifiers;
-	const char	*embedded_specifier_start_pos;
-	char		*parsed_embedded_specifier;
+	const char	*specifier_start_pos;
 
-	format_specifiers = "cspdiuxX";
-	parsed_embedded_specifier = NULL;
-	va_start(args, format);
 	while (*format)
 	{
 		if (*format == '%')
@@ -31,37 +25,31 @@ void	ft_printf(const char *format, ...)
 				write(1, "%", 1);
 			else
 			{
-				embedded_specifier_start_pos = format;
+				specifier_start_pos = format;
 				while (ft_isalpha(*format) == 0)
-				{
 					format++;
-				}
-				if (ft_strchr(format_specifiers, *format) != NULL)
-				{
-					parsed_embedded_specifier = ft_substr(embedded_specifier_start_pos,
-							0, (ft_strlen(embedded_specifier_start_pos)
-								- ft_strlen(format)) + 1);
-					parse_args(parsed_embedded_specifier, args);
-					parsed_embedded_specifier = NULL;
-				}
-				// else
-				// {
-				// 	// raise error
-				// }
+				if (parse_format_specifier(format, specifier_start_pos,
+						args) < 0)
+					return (-1);
 			}
 		}
 		else
-		{
 			write(1, format, 1);
-		}
 		format++;
 	}
 	va_end(args);
+	return (0);
 }
 
-int	main(void)
+int	ft_printf(const char *format, ...)
 {
-	// printf("------\n");
-	ft_printf("---\n%c\n%s\n%d\n%i\n%u\n%x\n%X\n%%\n---\n", 't', "yamini", 21,
-		12, -1, 21, 21);
+	va_list	args;
+
+	va_start(args, format);
+	if (validate_format(format) >= 0)
+	{
+		return (print_formatted_data_to_stdout(format, args));
+	}
+	else
+		return (-1);
 }

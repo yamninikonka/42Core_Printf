@@ -1,46 +1,67 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror #-I./libft
+# CC = cc
+# CFLAGS = -Wall -Wextra -Werror #-I./libft
 
-SRCS:= $(wildcard *.c)
-OBJS:= $(SRCS:%.c=%.o)
+# SRCS:= $(wildcard *.c)
+# OBJS:= $(SRCS:%.c=%.o)
+
+# NAME = libftprintf.a
+# LIBFTNAME = libft.a
+
+# %.o: %.c
+# 	$(CC) $(CFLAGS) -c $< -o $@
+
+# $(NAME): $(OBJS) $(LIBFTNAME)
+# 	ar -x $(LIBFTNAME)
+# 	ar rcs $(NAME) $(OBJS) *.o
+
+# $(LIBFTNAME):
+# 	$(MAKE) all -C ./libft
+# 	cp ./libft/libft.a $(LIBFTNAME)
+
+# all: $(NAME)
+
+# clean:
+# 	$(MAKE) clean -C ./libft
+# 	rm -f $(OBJS) *.o
+
+# fclean: clean
+# 	$(MAKE) fclean -C ./libft
+# 	rm -f $(NAME) $(LIBFTNAME)
+
+# re: clean fclean all
+
+# .PHONY: all clean fclean re
 
 NAME = libftprintf.a
-LIBFTNAME = libft.a
+SCRS = $(wildcard *.c)
+CFLAGS = -Wall -Werror -Wextra
+OBJ = $(SCRS:.c=.o)
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+all: $(LIBFT) $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@cc $(CFLAGS) -c $< -o $@
 
-PRINTFSRCS:= parser.c libft/ft_substr.c \
-			libft/ft_strchr.c libft/ft_strlen.c \
-			libft/ft_isalpha.c libft/ft_putnbr_fd.c \
-			libft/ft_putchar_fd.c libft/ft_putstr_fd.c \
-			libft/ft_calloc.c libft/ft_bzero.c hexadecimal.c
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+	
 
-PRINTFOBJS:= $(SRCS:%.c=%.o)
-
-ft_printf:
-	$(CC) $(CFLAGS) -o ft_printf $(PRINTFSRCS)
-	./ft_printf && rm -f *.o ft_printf
-
-$(NAME): $(OBJS) $(LIBFTNAME)
-	ar -x $(LIBFTNAME)
-	ar rcs $(NAME) $(OBJS) *.o
-
-$(LIBFTNAME):
-	$(MAKE) all -C ./libft
-	cp ./libft/libft.a $(LIBFTNAME)
-
-all: $(NAME)
+$(NAME): $(OBJ) $(LIBFT)
+	@cp $(LIBFT) $(NAME)
+	ar rcs $(NAME) $(OBJ)
+	ranlib $(NAME)
 
 clean:
-	$(MAKE) clean -C ./libft
-	rm -f $(OBJS) *.o
+	@rm -f $(OBJ)
+	@make -C $(LIBFT_DIR) clean
+	@rm -f *.o
 
 fclean: clean
-	$(MAKE) fclean -C ./libft
-	rm -f $(NAME) $(LIBFTNAME)
+	@rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean
 
-re: clean fclean all
+re: fclean all
 
 .PHONY: all clean fclean re
-

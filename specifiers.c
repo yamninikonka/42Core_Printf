@@ -1,21 +1,25 @@
 
 #include "libftprintf.h"
 
-void	print_ptr(void *ptr)
+int	print_args(char *specifiers, va_list args)
 {
-	unsigned long long int	num;
-	char					*result;
+	char	specifier;
 
-	// char					str[32];
-	num = (unsigned long long int)ptr;
-	result = decimal_to_hexadecimal(num, 'x');
-	if (result == NULL)
+	// printf("%s\n", specifiers);
+	specifier = specifiers[ft_strlen(specifiers) - 1];
+	if (specifier == 'c' || specifier == 's' || specifier == 'p')
 	{
-		return ;
+		char_group(specifiers[ft_strlen(specifiers) - 1], args);
+		return (0);
 	}
-	write(1, result, ft_strlen(result));
-	write(1, "\n", 1);
-	printf("%p\n", result);
+	else if (specifier == 'd' || specifier == 'i' || specifier == 'u'
+		|| specifier == 'x' || specifier == 'X')
+	{
+		int_group(specifiers[ft_strlen(specifiers) - 1], args);
+		return (0);
+	}
+	else
+		return (-1);
 }
 
 // int	main(void)
@@ -26,5 +30,6 @@ void	print_ptr(void *ptr)
 // 	n = 42;
 // 	ptr = &n;
 // 	print_ptr(ptr);
+// 	printf("\n%p\n", ptr);
 // 	return (0);
 // }

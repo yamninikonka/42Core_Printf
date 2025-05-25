@@ -18,8 +18,14 @@
 #include "libft/libft.h"
 #include <stdio.h>
 
-char	*decimal_to_hexadecimal(int integer, char letter_size);
-void	parse_args(char *specifier, va_list args);
-void	validate_format(const char *format);
+int	ft_printf(const char *format, ...);
+int	validate_format(const char *format);
+int	validate_format_specifier(int specifier);
+int	parse_format_specifier(const char *format, const char *specifier_start_pos,
+	va_list args);
+int	print_args(char *specifiers, va_list args);
+void	char_group(char specifier, va_list args);
+void	int_group(char specifier, va_list args);
+char	*decimal_to_hexadecimal(long integer, char letter_size);
 
 #endif

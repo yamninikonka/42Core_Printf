@@ -1,99 +1,19 @@
 
 #include "libftprintf.h"
 
-void	validate_format(const char *format)
+int	parse_format_specifier(const char *format, const char *specifier_start_pos,
+		va_list args)
 {
-	if (format == NULL)
-	{
-		fprintf(stderr, "Error: Format string is NULL\n");
-		return ;
-	}
-	// if (strlen(format) == 0)
-	// {
-	// }
-}
+	char	*parsed_embedded_specifier;
 
-// void	char_group(char *specifiers, va_list args)
-// {
-// 	if (specifiers[ft_strlen(specifiers) - 1] == 'c'):
-// 		{
-// 			// 'print character';
-// 			ft_putchar_fd(va_arg(args, int), 1);
-// 		}
-// 	else:  // 's'
-// 		{
-// 			// 'print string';
-// 			ft_putstr_fd(va_arg(args, char *), 1);
-// 		}
-// }
-
-// void	int_group(char *specifiers, va_list args)
-// {
-// 	if (specifiers[ft_strlen(specifiers) - 1] == 'd'
-// 		|| specifiers[ft_strlen(specifiers) - 1] == 'i'):
-// 		{
-// 			// 'implement code logic to print integer';
-// 			ft_putnbr_fd(va_arg(args, int), 1);
-// 			break ;
-// 		}
-// 	else:
-// 		{
-// 			// 'print unsigned decimal in base 10';
-// 			ft_putnbr_fd((unsigned int)va_arg(args, int), 1);
-// 			break ;
-// 		}
-// }
-void	parse_args(char *specifiers, va_list args)
-{
-	printf("%s\n", specifiers);
-	switch (specifiers[ft_strlen(specifiers) - 1])
+	parsed_embedded_specifier = NULL;
+	if (validate_format_specifier(*format) >= 0)
 	{
-	case 'c':
-	{
-		// 'print character';
-		ft_putchar_fd(va_arg(args, int), 1);
-		break ;
+		parsed_embedded_specifier = ft_substr(specifier_start_pos, 0,
+				(ft_strlen(specifier_start_pos) - ft_strlen(format)) + 1);
+		return (print_args(parsed_embedded_specifier, args));
+		// parsed_embedded_specifier = NULL;
 	}
-	case 's':
-	{
-		// 'print string';
-		ft_putstr_fd(va_arg(args, char *), 1);
-		break ;
-	}
-	// case 'p':
-	// {
-	// 	'print pointer address';
-	// 	break ;
-	// }
-	case 'd':
-	case 'i':
-	{
-		// 'implement code logic to print integer';
-		ft_putnbr_fd(va_arg(args, int), 1);
-		break ;
-	}
-	case 'u':
-	{
-		// 'print unsigned decimal in base 10';
-		ft_putnbr_fd((unsigned int)va_arg(args, int), 1);
-		break ;
-	}
-	case 'x':
-	{
-		// 'print hexadecimal lowercase format';
-		ft_putstr_fd(decimal_to_hexadecimal(va_arg(args, int), 'x'), 1);
-		break ;
-	}
-	case 'X':
-	{
-		// 'print hexadecimal uppercase format';
-		ft_putstr_fd(decimal_to_hexadecimal(va_arg(args, int), 'X'), 1);
-		break ;
-	}
-	default:
-	{
-		// 'raise error';
-		write(1, "raise error", 11);
-	}
-	}
+	else
+		return (-1); // signals error
 }
