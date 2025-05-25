@@ -14,7 +14,8 @@
 
 int	int_group(char specifier, va_list args)
 {
-	int	num;
+	int		num;
+	char	*str;
 
 	num = va_arg(args, int);
 	if (specifier == 'd' || specifier == 'i')
@@ -27,7 +28,11 @@ int	int_group(char specifier, va_list args)
 		// 'print unsigned decimal in base 10';
 		ft_putnbr_fd((unsigned int)num, 1);
 	}
-	return (ft_strlen(ft_itoa(num))); // careful with neg nums
+	str = ft_itoa(num);
+	num = ft_strlen(str);
+	free(str);
+	str = NULL;
+	return (num); // careful with neg nums
 }
 
 int	put_ints_in_hexa(char specifier, va_list args)
