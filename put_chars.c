@@ -41,21 +41,25 @@ int	char_group(char specifier, va_list args)
 	char	*str;
 
 	str = NULL;
-	if (specifier == 'c')
+	if (specifier == 'c') // 'print character';
 	{
-		// 'print character';
 		ft_putchar_fd(va_arg(args, int), 1);
 		return (1);
 	}
-	else if (specifier == 's') // 's'
+	else if (specifier == 's') // 's' // 'print string';
 	{
-		// 'print string';
 		str = va_arg(args, char *);
-		ft_putstr_fd(str, 1);
-		return (ft_strlen(str));
+		if (str != NULL)
+		{
+			ft_putstr_fd(str, 1);
+			return (ft_strlen(str));
+		}
+		else
+		{
+			ft_putstr_fd("(null)", 1);
+			return (6);
+		}
 	}
 	else // 'p'
-	{
 		return (ft_putptr_fd(va_arg(args, void *), 1));
-	}
 }
