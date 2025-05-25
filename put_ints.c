@@ -12,6 +12,18 @@
 
 #include "ft_printf.h"
 
+static int	put_uint(unsigned int num)
+{
+	if (num > 9)
+	{
+		return (put_uint(num / 10) + (ft_putchar_fd('0' + (num % 10), 1), 1));
+	}
+	else
+	{
+		return (ft_putchar_fd('0' + num, 1), 1);
+	}
+}
+
 int	int_group(char specifier, va_list args)
 {
 	int		num;
@@ -26,7 +38,7 @@ int	int_group(char specifier, va_list args)
 	else // 'u'
 	{
 		// 'print unsigned decimal in base 10';
-		ft_putnbr_fd((unsigned int)num, 1);
+		return (put_uint((unsigned int)num));
 	}
 	str = ft_itoa(num);
 	num = ft_strlen(str);
