@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static int	get_size(unsigned long integer)
+static int	get_size(unsigned int integer)
 {
 	if (integer < 16 && integer >= 0) // (integer < 16 && integer >= -16)
 		return (1);
@@ -32,7 +32,7 @@ static char	hexadecimal_value(int index, char letter_size)
 	}
 }
 
-static char	*hexadecimal_positive(unsigned long integer, char letter_size,
+static char	*hexadecimal_positive(unsigned int integer, char letter_size,
 		char *hexa)
 {
 	if (integer >= 16)
@@ -43,13 +43,13 @@ static char	*hexadecimal_positive(unsigned long integer, char letter_size,
 	return (hexa + 1);
 }
 
-char	*decimal_to_hexadecimal(long integer, char letter_size)
+char	*decimal_to_hexadecimal(int integer, char letter_size)
 {
 	char			*hexa;
 	char			*end;
-	unsigned long	num;
+	unsigned int	num;
 
-	num = (unsigned long)integer;
+	num = (unsigned int)integer;
 	hexa = malloc(sizeof(char) * (get_size(num) + 1));
 	end = hexadecimal_positive(num, letter_size, hexa);
 	*end = '\0';
