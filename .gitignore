@@ -7,3 +7,4 @@
 *.out
 /LICENSE
 /README.md
+/main.c
