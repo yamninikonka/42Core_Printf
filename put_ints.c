@@ -12,16 +12,34 @@
 
 #include "ft_printf.h"
 
-static int	put_uint(unsigned int num)
+int	uint_len(unsigned int num)
 {
-	if (num > 9)
+	int	count;
+
+	count = 0;
+	while (num > 9)
 	{
-		return (put_uint(num / 10) + (ft_putchar_fd('0' + (num % 10), 1), 1));
+		count++;
+		num /= 10;
 	}
-	else
+	count++;
+	return (count);
+}
+static char	*uitoa(unsigned int num)
+{
+	char	*uint_str;
+	int		len;
+
+	len = uint_len(num) + 1;
+	uint_str = malloc(len-- * sizeof(char));
+	uint_str[len--] = '\0';
+	while (num > 9)
 	{
-		return (ft_putchar_fd('0' + num, 1), 1);
+		uint_str[len--] = '0' + num % 10;
+		num /= 10;
 	}
+	uint_str[len] = '0' + num;
+	return (uint_str);
 }
 
 int	puthexa(int num, char size)
@@ -30,8 +48,7 @@ int	puthexa(int num, char size)
 	int		len;
 
 	hexa_str = decimal_to_hexadecimal(num, size);
-	ft_putstr_fd(hexa_str, 1);
-	len = ft_strlen(hexa_str);
+	len = ft_putstr(hexa_str);
 	free(hexa_str);
 	hexa_str = NULL;
 	return (len);
@@ -46,15 +63,14 @@ int	int_group(char specifier, va_list args)
 	if (specifier == 'd' || specifier == 'i')
 	{
 		// 'implement code logic to print integer';
-		ft_putnbr_fd(num, 1);
+		str = ft_itoa(num);
 	}
 	else // 'u'
 	{
 		// 'print unsigned decimal in base 10';
-		return (put_uint((unsigned int)num));
+		str = uitoa(num);
 	}
-	str = ft_itoa(num);
-	num = ft_strlen(str);
+	num = ft_putstr(str);
 	free(str);
 	str = NULL;
 	return (num); // careful with neg nums

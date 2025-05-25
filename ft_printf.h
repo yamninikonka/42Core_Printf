@@ -30,5 +30,6 @@ int	put_ints_in_hexa(char specifier, va_list args);
 char	*decimal_to_hexadecimal(int integer, char letter_size);
 char	*decimal_to_hexadecimal_long(long integer, char letter_size);
 int	puthexa(int num, char size);
+int	ft_putstr(const char *str);
 
 #endif

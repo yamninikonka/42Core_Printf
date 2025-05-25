@@ -56,7 +56,7 @@ static int	print_formatted_data_to_stdout(const char *format, va_list args)
 				written = parse_format_specifier(format, specifier_start_pos,
 						args);
 				if (written < 0)
-					return (-1);
+					return (written);
 				else
 					count = count + written;
 			}

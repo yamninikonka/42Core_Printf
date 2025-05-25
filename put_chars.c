@@ -12,7 +12,19 @@
 
 #include "ft_printf.h"
 
-static int	ft_putptr_fd(void *ptr, int fd)
+int	ft_putstr(const char *str)
+{
+	if (str != NULL)
+	{
+		return (write(1, str, ft_strlen(str)));
+	}
+	else
+	{
+		return (write(1, "(null)", 6));
+	}
+}
+
+static int	ft_putptr(void *ptr)
 {
 	unsigned long int	num;
 	char				*hexa_num;
@@ -27,8 +39,7 @@ static int	ft_putptr_fd(void *ptr, int fd)
 	// }
 	joined_str = ft_strjoin("0x", hexa_num);
 	// write(1, result, ft_strlen(result));
-	ft_putstr_fd(joined_str, fd);
-	len = ft_strlen(joined_str);
+	len = ft_putstr(joined_str);
 	free(hexa_num);
 	hexa_num = NULL;
 	free(joined_str);
@@ -39,27 +50,30 @@ static int	ft_putptr_fd(void *ptr, int fd)
 int	char_group(char specifier, va_list args)
 {
 	char	*str;
+	int		c;
 
 	str = NULL;
+	c = '\0';
 	if (specifier == 'c') // 'print character';
 	{
-		ft_putchar_fd(va_arg(args, int), 1);
-		return (1);
+		c = va_arg(args, int);
+		return (write(1, &c, 1));
 	}
 	else if (specifier == 's') // 's' // 'print string';
 	{
-		str = va_arg(args, char *);
-		if (str != NULL)
-		{
-			ft_putstr_fd(str, 1);
-			return (ft_strlen(str));
-		}
-		else
-		{
-			ft_putstr_fd("(null)", 1);
-			return (6);
-		}
+		// str = va_arg(args, char *);
+		// if (str != NULL)
+		// {
+		// 	ft_putstr_fd(str, 1);
+		// 	return (ft_strlen(str));
+		// }
+		// else
+		// {
+		// 	ft_putstr_fd("(null)", 1);
+		// 	return (6);
+		// }
+		return (ft_putstr(va_arg(args, char *)));
 	}
 	else // 'p'
-		return (ft_putptr_fd(va_arg(args, void *), 1));
+		return (ft_putptr(va_arg(args, void *)));
 }
