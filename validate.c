@@ -17,9 +17,9 @@ int	validate_format(const char *format)
 	if (format == NULL)
 		return (-1);
 	if (ft_strlen(format) == 0)
-		return (-1);
-	else
 		return (0);
+	else
+		return (1);
 }
 
 int	validate_format_specifier(int specifier)
@@ -30,5 +30,5 @@ int	validate_format_specifier(int specifier)
 	if (ft_strchr(format_specifiers, specifier) == NULL)
 		return (-1);
 	else
-		return (0);
+		return (1);
 }

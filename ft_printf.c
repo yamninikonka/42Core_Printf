@@ -19,17 +19,25 @@ static int	format_len(const char *format)
 	count = 0; // original prinf returns format_len+1, i.e; count starts from 1
 	while (*format)
 	{
-		if (*format != '%')
-			count++;
+		count++;
+		if (*format == '%')
+		{
+			format++;
+			if (ft_isalpha(*format) == 1)
+				count++;
+		}
 		format++;
 	}
-	return (count + 1);
+	return (count);
 }
 
 static int	print_formatted_data_to_stdout(const char *format, va_list args)
 {
 	const char	*specifier_start_pos;
+	int			count;
+	int			written;
 
+	count = 0;
 	while (*format)
 	{
 		if (*format == '%')
@@ -37,21 +45,28 @@ static int	print_formatted_data_to_stdout(const char *format, va_list args)
 			format++;
 			if (*format == '%')
 				write(1, "%", 1);
+			count++;
 			else
 			{
 				specifier_start_pos = format;
 				while (ft_isalpha(*format) == 0)
 					format++;
-				if (parse_format_specifier(format, specifier_start_pos,
-						args) < 0)
+				written = parse_format_specifier(format, specifier_start_pos,
+						args);
+				if (written < 0)
 					return (-1);
+				else
+					count = count + written;
 			}
 		}
 		else
+		{
 			write(1, format, 1);
+			count++;
+		}
 		format++;
 	}
-	return (0);
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
@@ -59,13 +74,12 @@ int	ft_printf(const char *format, ...)
 	va_list	args;
 
 	va_start(args, format);
-	if (validate_format(format) >= 0)
+	if (validate_format(format) > 0)
 	{
-		if (print_formatted_data_to_stdout(format, args) >= 0)
-			return (format_len(format));
-		else
-			return (-1);
+		return (print_formatted_data_to_stdout(format, args));
 	}
+	else if (validate_format(format) == 0)
+		return (0);
 	else
 		return (-1);
 	va_end(args);

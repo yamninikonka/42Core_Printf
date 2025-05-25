@@ -12,11 +12,12 @@
 
 #include "ft_printf.h"
 
-static void	ft_putptr_fd(void *ptr, int fd)
+static int	ft_putptr_fd(void *ptr, int fd)
 {
 	unsigned long int	num;
 	char				*hexa_num;
 	char				*joined_str;
+	int					len;
 
 	num = (unsigned long int)ptr;
 	hexa_num = decimal_to_hexadecimal(num, 'x');
@@ -27,26 +28,34 @@ static void	ft_putptr_fd(void *ptr, int fd)
 	joined_str = ft_strjoin("0x", hexa_num);
 	// write(1, result, ft_strlen(result));
 	ft_putstr_fd(joined_str, fd);
+	len = ft_strlen(joined_str);
 	free(hexa_num);
 	hexa_num = NULL;
 	free(joined_str);
 	joined_str = NULL;
+	return (len);
 }
 
-void	char_group(char specifier, va_list args)
+int	char_group(char specifier, va_list args)
 {
+	char	*str;
+
+	str = NULL;
 	if (specifier == 'c')
 	{
 		// 'print character';
 		ft_putchar_fd(va_arg(args, int), 1);
+		return (1);
 	}
 	else if (specifier == 's') // 's'
 	{
 		// 'print string';
-		ft_putstr_fd(va_arg(args, char *), 1);
+		str = va_arg(args, char *);
+		ft_putstr_fd(str, 1);
+		return (ft_strlen(str));
 	}
 	else // 'p'
 	{
-		ft_putptr_fd(va_arg(args, void *), 1);
+		return (ft_putptr_fd(va_arg(args, void *), 1));
 	}
 }
