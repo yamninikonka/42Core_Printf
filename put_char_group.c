@@ -15,17 +15,22 @@
 static void	ft_putptr_fd(void *ptr, int fd)
 {
 	unsigned long int	num;
-	char				*result;
+	char				*hexa_num;
+	char				*joined_str;
 
 	num = (unsigned long int)ptr;
-	result = decimal_to_hexadecimal(num, 'x');
-	if (result == NULL)
-	{
-		return ;
-	}
-	result = ft_strjoin("0x", result);
+	hexa_num = decimal_to_hexadecimal(num, 'x');
+	// if (hexa_num == NULL)
+	// {
+	// 	return ;
+	// }
+	joined_str = ft_strjoin("0x", hexa_num);
 	// write(1, result, ft_strlen(result));
-	ft_putstr_fd(result, fd);
+	ft_putstr_fd(joined_str, fd);
+	free(hexa_num);
+	hexa_num = NULL;
+	free(joined_str);
+	joined_str = NULL;
 }
 
 void	char_group(char specifier, va_list args)

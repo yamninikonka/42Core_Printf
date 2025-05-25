@@ -16,14 +16,14 @@ static int	format_len(const char *format)
 {
 	int	count;
 
-	count = 1; // original prinf returns format_len+1, i.e; count starts from 1
+	count = 0; // original prinf returns format_len+1, i.e; count starts from 1
 	while (*format)
 	{
 		if (*format != '%')
 			count++;
 		format++;
 	}
-	return (count);
+	return (count + 1);
 }
 
 static int	print_formatted_data_to_stdout(const char *format, va_list args)
