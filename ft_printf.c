@@ -16,7 +16,7 @@ static int	format_len(const char *format)
 {
 	int	count;
 
-	count = 0;
+	count = 1; // original prinf returns format_len+1, i.e; count starts from 1
 	while (*format)
 	{
 		if (*format != '%')
