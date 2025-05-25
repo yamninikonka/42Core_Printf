@@ -28,6 +28,7 @@ int	char_group(char specifier, va_list args);
 int	int_group(char specifier, va_list args);
 int	put_ints_in_hexa(char specifier, va_list args);
 char	*decimal_to_hexadecimal(int integer, char letter_size);
+char	*decimal_to_hexadecimal_long(long integer, char letter_size);
 int	puthexa(int num, char size);
 
 #endif

@@ -24,6 +24,19 @@ static int	put_uint(unsigned int num)
 	}
 }
 
+int	puthexa(int num, char size)
+{
+	char	*hexa_str;
+	int		len;
+
+	hexa_str = decimal_to_hexadecimal(num, size);
+	ft_putstr_fd(hexa_str, 1);
+	len = ft_strlen(hexa_str);
+	free(hexa_str);
+	hexa_str = NULL;
+	return (len);
+}
+
 int	int_group(char specifier, va_list args)
 {
 	int		num;

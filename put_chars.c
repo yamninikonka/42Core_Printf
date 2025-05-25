@@ -20,7 +20,7 @@ static int	ft_putptr_fd(void *ptr, int fd)
 	int					len;
 
 	num = (unsigned long int)ptr;
-	hexa_num = decimal_to_hexadecimal(num, 'x');
+	hexa_num = decimal_to_hexadecimal_long(num, 'x');
 	// if (hexa_num == NULL)
 	// {
 	// 	return ;
