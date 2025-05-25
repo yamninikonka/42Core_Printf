@@ -19,8 +19,7 @@ int	print_args(char *specifiers, va_list args)
 	}
 	else if (specifier == 'x' || specifier == 'X')
 	{
-		return (int put_ints_in_hexa(specifiers[ft_strlen(specifiers) - 1],
-				args));
+		return (put_ints_in_hexa(specifiers[ft_strlen(specifiers) - 1], args));
 	}
 	else
 		return (-1);

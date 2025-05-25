@@ -14,8 +14,7 @@
 
 int	int_group(char specifier, va_list args)
 {
-	char	*str;
-	int		num;
+	int	num;
 
 	num = va_arg(args, int);
 	if (specifier == 'd' || specifier == 'i')

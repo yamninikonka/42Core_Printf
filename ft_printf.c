@@ -12,24 +12,24 @@
 
 #include "ft_printf.h"
 
-static int	format_len(const char *format)
-{
-	int	count;
+// static int	format_len(const char *format)
+// {
+// 	int	count;
 
-	count = 0; // original prinf returns format_len+1, i.e; count starts from 1
-	while (*format)
-	{
-		count++;
-		if (*format == '%')
-		{
-			format++;
-			if (ft_isalpha(*format) == 1)
-				count++;
-		}
-		format++;
-	}
-	return (count);
-}
+// 	count = 0; // original prinf returns format_len+1, i.e; count starts from 1
+// 	while (*format)
+// 	{
+// 		count++;
+// 		if (*format == '%')
+// 		{
+// 			format++;
+// 			if (ft_isalpha(*format) == 1)
+// 				count++;
+// 		}
+// 		format++;
+// 	}
+// 	return (count);
+// }
 
 static int	print_formatted_data_to_stdout(const char *format, va_list args)
 {
@@ -44,8 +44,10 @@ static int	print_formatted_data_to_stdout(const char *format, va_list args)
 		{
 			format++;
 			if (*format == '%')
+			{
 				write(1, "%", 1);
-			count++;
+				count++;
+			}
 			else
 			{
 				specifier_start_pos = format;

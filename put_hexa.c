@@ -56,7 +56,7 @@ char	*decimal_to_hexadecimal(long integer, char letter_size)
 	return (hexa);
 }
 
-static int	puthexa(int num, char size)
+int	puthexa(int num, char size)
 {
 	char	*hexa_str;
 	int		len;
