@@ -64,4 +64,8 @@ fclean: clean
 
 re: fclean all
 
+run: $(NAME)
+	@cc $(CFLAGS) $(OBJ) $(LIBFT) -o main
+	./main
+
 .PHONY: all clean fclean re

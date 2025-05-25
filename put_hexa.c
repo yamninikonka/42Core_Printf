@@ -60,6 +60,8 @@ char	*decimal_to_hexadecimal(int integer, char letter_size)
 
 	num = (unsigned int)integer;
 	hexa = malloc(sizeof(char) * (get_size(num) + 1));
+	if (!hexa)
+		return (NULL);
 	end = hexadecimal_positive(num, letter_size, hexa);
 	*end = '\0';
 	return (hexa);
@@ -93,6 +95,8 @@ char	*decimal_to_hexadecimal_long(long integer, char letter_size)
 
 	num = (unsigned long)integer;
 	hexa = malloc(sizeof(char) * (get_size(num) + 1));
+	if (!hexa)
+		return (NULL);
 	end = hexadecimal_positive_long(num, letter_size, hexa);
 	*end = '\0';
 	return (hexa);

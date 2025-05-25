@@ -31,17 +31,19 @@ static int	ft_putptr(void *ptr)
 	char				*joined_str;
 	int					len;
 
+	// if (!ptr)
+	// 	return (-1);
 	num = (unsigned long int)ptr;
 	hexa_num = decimal_to_hexadecimal_long(num, 'x');
-	// if (hexa_num == NULL)
-	// {
-	// 	return ;
-	// }
+	if (!hexa_num)
+		return (-1);
 	joined_str = ft_strjoin("0x", hexa_num);
 	// write(1, result, ft_strlen(result));
-	len = ft_putstr(joined_str);
 	free(hexa_num);
 	hexa_num = NULL;
+	if (!joined_str)
+		return (-1);
+	len = ft_putstr(joined_str);
 	free(joined_str);
 	joined_str = NULL;
 	return (len);

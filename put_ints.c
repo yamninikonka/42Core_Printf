@@ -32,6 +32,8 @@ static char	*uitoa(unsigned int num)
 
 	len = uint_len(num) + 1;
 	uint_str = malloc(len-- * sizeof(char));
+	if (!uint_str)
+		return (NULL);
 	uint_str[len--] = '\0';
 	while (num > 9)
 	{
@@ -48,6 +50,8 @@ int	puthexa(int num, char size)
 	int		len;
 
 	hexa_str = decimal_to_hexadecimal(num, size);
+	if (!hexa_str)
+		return (-1);
 	len = ft_putstr(hexa_str);
 	free(hexa_str);
 	hexa_str = NULL;
@@ -70,6 +74,8 @@ int	int_group(char specifier, va_list args)
 		// 'print unsigned decimal in base 10';
 		str = uitoa(num);
 	}
+	if (!str)
+		return (-1);
 	num = ft_putstr(str);
 	free(str);
 	str = NULL;
