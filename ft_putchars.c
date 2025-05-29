@@ -12,6 +12,37 @@
 
 #include "ft_printf.h"
 
+int	ft_putchars(char specifier, va_list args)
+{
+	char	*str;
+	int		c;
+
+	str = NULL;
+	c = '\0';
+	if (specifier == 'c') // 'print character';
+	{
+		c = va_arg(args, int);
+		return (write(1, &c, 1));
+	}
+	else if (specifier == 's') // 's' // 'print string';
+	{
+		// str = va_arg(args, char *);
+		// if (str != NULL)
+		// {
+		// 	ft_putstr_fd(str, 1);
+		// 	return (ft_strlen(str));
+		// }
+		// else
+		// {
+		// 	ft_putstr_fd("(null)", 1);
+		// 	return (6);
+		// }
+		return (ft_putstr(va_arg(args, char *)));
+	}
+	else // 'p'
+		return (ft_putptr(va_arg(args, void *)));
+}
+
 int	ft_putstr(const char *str)
 {
 	if (str != NULL)
@@ -44,34 +75,4 @@ int	ft_putptr(void *ptr)
 	free(joined_str);
 	joined_str = NULL;
 	return (len);
-}
-int	ft_putchars(char specifier, va_list args)
-{
-	char	*str;
-	int		c;
-
-	str = NULL;
-	c = '\0';
-	if (specifier == 'c') // 'print character';
-	{
-		c = va_arg(args, int);
-		return (write(1, &c, 1));
-	}
-	else if (specifier == 's') // 's' // 'print string';
-	{
-		// str = va_arg(args, char *);
-		// if (str != NULL)
-		// {
-		// 	ft_putstr_fd(str, 1);
-		// 	return (ft_strlen(str));
-		// }
-		// else
-		// {
-		// 	ft_putstr_fd("(null)", 1);
-		// 	return (6);
-		// }
-		return (ft_putstr(va_arg(args, char *)));
-	}
-	else // 'p'
-		return (ft_putptr(va_arg(args, void *)));
 }

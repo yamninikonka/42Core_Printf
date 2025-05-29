@@ -21,11 +21,12 @@
 int		ft_printf(const char *format, ...);
 int		validate_format(const char *format);
 int		validate_format_specifier(int specifier);
-int		parse_format_specifier(const char *format,
-			const char *specifier_start_pos, va_list args);
+int		parse_specifier(const char *format, const char *specifier_start_pos,
+			va_list args);
 int		print_args(char *specifiers, va_list args);
 int		ft_putchars(char specifier, va_list args);
 int		ft_putstr(const char *str);
+int		ft_putptr(void *ptr);
 int		ft_putints(char specifier, va_list args);
 int		ft_puthexaints(char specifier, va_list args);
 char	*ft_uitoa(unsigned int num);

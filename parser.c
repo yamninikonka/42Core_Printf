@@ -1,7 +1,7 @@
 
 #include "ft_printf.h"
 
-int	parse_format_specifier(const char *format, const char *specifier_start_pos,
+int	parse_specifier(const char *format, const char *specifier_start_pos,
 		va_list args)
 {
 	char	*parsed_embedded_specifier;
