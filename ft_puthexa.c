@@ -12,6 +12,20 @@
 
 #include "ft_printf.h"
 
+int	ft_puthexa(int num, char size)
+{
+	char	*hexa_str;
+	int		len;
+
+	hexa_str = ft_decimaltohexa(num, size);
+	if (!hexa_str)
+		return (-1);
+	len = ft_putstr(hexa_str);
+	free(hexa_str);
+	hexa_str = NULL;
+	return (len);
+}
+
 static int	get_size(unsigned long integer)
 {
 	if (integer < 16 && integer >= 0) // (integer < 16 && integer >= -16)
@@ -32,12 +46,32 @@ static int	get_size(unsigned long integer)
 // 	}
 // }
 
-static char	*hexadecimal_positive(unsigned int integer, char letter_size,
+// static char	*hexadecimal_positive(unsigned int integer, char letter_size,
+// 		char *hexa)
+// {
+// 	if (integer >= 16)
+// 	{
+// 		hexa = hexadecimal_positive(integer / 16, letter_size, hexa);
+// 	}
+// 	// *hexa = hexadecimal_value(integer % 16, letter_size);
+// 	if (integer % 16 < 10)
+// 		*hexa = '0' + integer % 16;
+// 	else
+// 	{
+// 		if (letter_size == 'x')
+// 			*hexa = 'a' + (integer % 16 - 10);
+// 		else
+// 			*hexa = 'A' + (integer % 16 - 10);
+// 	}
+// 	return (hexa + 1);
+// }
+
+static char	*hexa_conversion(unsigned long integer, char letter_size,
 		char *hexa)
 {
 	if (integer >= 16)
 	{
-		hexa = hexadecimal_positive(integer / 16, letter_size, hexa);
+		hexa = hexa_conversion(integer / 16, letter_size, hexa);
 	}
 	// *hexa = hexadecimal_value(integer % 16, letter_size);
 	if (integer % 16 < 10)
@@ -52,7 +86,7 @@ static char	*hexadecimal_positive(unsigned int integer, char letter_size,
 	return (hexa + 1);
 }
 
-char	*decimal_to_hexadecimal(int integer, char letter_size)
+char	*ft_decimaltohexa(int integer, char letter_size)
 {
 	char			*hexa;
 	char			*end;
@@ -62,32 +96,12 @@ char	*decimal_to_hexadecimal(int integer, char letter_size)
 	hexa = malloc(sizeof(char) * (get_size(num) + 1));
 	if (!hexa)
 		return (NULL);
-	end = hexadecimal_positive(num, letter_size, hexa);
+	end = hexa_conversion(num, letter_size, hexa);
 	*end = '\0';
 	return (hexa);
 }
 
-static char	*hexadecimal_positive_long(unsigned long integer, char letter_size,
-		char *hexa)
-{
-	if (integer >= 16)
-	{
-		hexa = hexadecimal_positive_long(integer / 16, letter_size, hexa);
-	}
-	// *hexa = hexadecimal_value(integer % 16, letter_size);
-	if (integer % 16 < 10)
-		*hexa = '0' + integer % 16;
-	else
-	{
-		if (letter_size == 'x')
-			*hexa = 'a' + (integer % 16 - 10);
-		else
-			*hexa = 'A' + (integer % 16 - 10);
-	}
-	return (hexa + 1);
-}
-
-char	*decimal_to_hexadecimal_long(long integer, char letter_size)
+char	*ft_decimaltohexa_ptr(long integer, char letter_size)
 {
 	char			*hexa;
 	char			*end;
@@ -97,7 +111,7 @@ char	*decimal_to_hexadecimal_long(long integer, char letter_size)
 	hexa = malloc(sizeof(char) * (get_size(num) + 1));
 	if (!hexa)
 		return (NULL);
-	end = hexadecimal_positive_long(num, letter_size, hexa);
+	end = hexa_conversion(num, letter_size, hexa);
 	*end = '\0';
 	return (hexa);
 }

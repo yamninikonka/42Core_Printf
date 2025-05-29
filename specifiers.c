@@ -10,16 +10,16 @@ int	print_args(char *specifiers, va_list args)
 	if (specifier == 'c' || specifier == 's' || specifier == 'p')
 	{
 		// char_group(specifiers[ft_strlen(specifiers) - 1], args);
-		return (char_group(specifiers[ft_strlen(specifiers) - 1], args));
+		return (ft_putchars(specifiers[ft_strlen(specifiers) - 1], args));
 	}
 	else if (specifier == 'd' || specifier == 'i' || specifier == 'u')
 	{
 		// int_group(specifiers[ft_strlen(specifiers) - 1], args);
-		return (int_group(specifiers[ft_strlen(specifiers) - 1], args));
+		return (ft_putints(specifiers[ft_strlen(specifiers) - 1], args));
 	}
 	else if (specifier == 'x' || specifier == 'X')
 	{
-		return (put_ints_in_hexa(specifiers[ft_strlen(specifiers) - 1], args));
+		return (ft_puthexaints(specifiers[ft_strlen(specifiers) - 1], args));
 	}
 	else
 		return (-1);

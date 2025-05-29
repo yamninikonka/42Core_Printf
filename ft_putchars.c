@@ -24,21 +24,18 @@ int	ft_putstr(const char *str)
 	}
 }
 
-static int	ft_putptr(void *ptr)
+int	ft_putptr(void *ptr)
 {
 	unsigned long int	num;
 	char				*hexa_num;
 	char				*joined_str;
 	int					len;
 
-	// if (!ptr)
-	// 	return (-1);
 	num = (unsigned long int)ptr;
-	hexa_num = decimal_to_hexadecimal_long(num, 'x');
+	hexa_num = ft_decimaltohexa_ptr(num, 'x');
 	if (!hexa_num)
 		return (-1);
 	joined_str = ft_strjoin("0x", hexa_num);
-	// write(1, result, ft_strlen(result));
 	free(hexa_num);
 	hexa_num = NULL;
 	if (!joined_str)
@@ -48,8 +45,7 @@ static int	ft_putptr(void *ptr)
 	joined_str = NULL;
 	return (len);
 }
-
-int	char_group(char specifier, va_list args)
+int	ft_putchars(char specifier, va_list args)
 {
 	char	*str;
 	int		c;

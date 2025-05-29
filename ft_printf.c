@@ -88,10 +88,4 @@ int	ft_printf(const char *format, ...)
 		return (va_end(args), 0);
 	else
 		return (va_end(args), -1);
-	// va_end(args);
 }
-
-// int	main(void)
-// {
-// 	ft_printf("%%%c", 'x');
-// }
