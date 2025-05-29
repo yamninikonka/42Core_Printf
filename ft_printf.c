@@ -51,8 +51,12 @@ static int	print_formatted_data_to_stdout(const char *format, va_list args)
 				if (print_char(*format, &count), count < 0)
 					return (-1);
 			}
-			else if (format = print_specifier(format, &count, args), count < 0)
-				return (-1);
+			else
+			{
+				format = print_specifier(format, &count, args);
+				if (count < 0)
+					return (-1);
+			}
 		}
 		else if (print_char(*format, &count), count < 0)
 			return (-1);

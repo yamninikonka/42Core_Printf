@@ -25,6 +25,7 @@ static int	uint_len(unsigned int num)
 	count++;
 	return (count);
 }
+
 char	*ft_uitoa(unsigned int num)
 {
 	char	*uint_str;
