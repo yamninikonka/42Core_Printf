@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ykonka <ykonka@student.42.fr>              #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-05-29 15:40:30 by ykonka            #+#    #+#             */
+/*   Updated: 2025-05-29 15:40:30 by ykonka           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
@@ -20,6 +31,6 @@ int	parse_specifier(const char *format, const char *specifier_start_pos,
 		parsed_embedded_specifier = NULL;
 	}
 	else
-		written_chars = -1; // signals error
+		written_chars = -1;
 	return (written_chars);
 }

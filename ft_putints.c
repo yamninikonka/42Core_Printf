@@ -20,12 +20,10 @@ int	ft_putints(char specifier, va_list args)
 	num = va_arg(args, int);
 	if (specifier == 'd' || specifier == 'i')
 	{
-		// 'implement code logic to print integer';
 		str = ft_itoa(num);
 	}
-	else // 'u'
+	else
 	{
-		// 'print unsigned decimal in base 10';
 		str = ft_uitoa(num);
 	}
 	if (!str)
@@ -33,20 +31,17 @@ int	ft_putints(char specifier, va_list args)
 	num = ft_putstr(str);
 	free(str);
 	str = NULL;
-	return (num); // careful with neg nums
+	return (num);
 }
 
 int	ft_puthexaints(char specifier, va_list args)
 {
 	if (specifier == 'x')
 	{
-		// 'print hexadecimal lowercase format';
 		return (ft_puthexa(va_arg(args, int), 'x'));
 	}
-	else // 'X'
+	else
 	{
-		// 'print hexadecimal uppercase format';
-		// ft_putstr_fd(decimal_to_hexadecimal(va_arg(args, int), 'X'), 1);
 		return (ft_puthexa(va_arg(args, int), 'X'));
 	}
 }

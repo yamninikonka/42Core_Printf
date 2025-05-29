@@ -19,27 +19,16 @@ int	ft_putchars(char specifier, va_list args)
 
 	str = NULL;
 	c = '\0';
-	if (specifier == 'c') // 'print character';
+	if (specifier == 'c')
 	{
 		c = va_arg(args, int);
 		return (write(1, &c, 1));
 	}
-	else if (specifier == 's') // 's' // 'print string';
+	else if (specifier == 's')
 	{
-		// str = va_arg(args, char *);
-		// if (str != NULL)
-		// {
-		// 	ft_putstr_fd(str, 1);
-		// 	return (ft_strlen(str));
-		// }
-		// else
-		// {
-		// 	ft_putstr_fd("(null)", 1);
-		// 	return (6);
-		// }
 		return (ft_putstr(va_arg(args, char *)));
 	}
-	else // 'p'
+	else
 		return (ft_putptr(va_arg(args, void *)));
 }
 

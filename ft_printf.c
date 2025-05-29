@@ -12,25 +12,6 @@
 
 #include "ft_printf.h"
 
-// static int	format_len(const char *format)
-// {
-// 	int	count;
-
-// 	count = 0; // original prinf returns format_len+1, i.e; count starts from 1
-// 	while (*format)
-// 	{
-// 		count++;
-// 		if (*format == '%')
-// 		{
-// 			format++;
-// 			if (ft_isalpha(*format) == 1)
-// 				count++;
-// 		}
-// 		format++;
-// 	}
-// 	return (count);
-// }
-
 static const char	*print_specifier(const char *format, int *count,
 		va_list args)
 {
