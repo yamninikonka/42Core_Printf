@@ -1,8 +1,4 @@
-/docx
-/excluded
-/executables
-/resources
-/tests
+
 *.pdf
 *.out
 /LICENSE
