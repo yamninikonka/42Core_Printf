@@ -1,5 +1,6 @@
 NAME = libftprintf.a
-SCRS = $(wildcard *.c)
+SCRS = ft_printf.c ft_putchars.c ft_puthexa.c \
+	ft_putints.c ft_uitoa.c parser.c specifiers.c validate.c
 CFLAGS = -Wall -Werror -Wextra
 OBJ = $(SCRS:.c=.o)
 LIBFT_DIR = ./libft
