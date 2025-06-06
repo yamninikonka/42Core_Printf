@@ -28,7 +28,7 @@ static const char	*print_specifier(const char *format, int *count,
 	return (format);
 }
 
-static void	print_char(char c, int *count)
+static void	print_format_string(char c, int *count)
 {
 	if (write(1, &c, 1) < 0)
 		*count = -1;
@@ -48,7 +48,7 @@ static int	print_formatted_data_to_stdout(const char *format, va_list args)
 			format++;
 			if (*format == '%')
 			{
-				if (print_char(*format, &count), count < 0)
+				if (print_format_string(*format, &count), count < 0)
 					return (-1);
 			}
 			else
@@ -58,7 +58,7 @@ static int	print_formatted_data_to_stdout(const char *format, va_list args)
 					return (-1);
 			}
 		}
-		else if (print_char(*format, &count), count < 0)
+		else if (print_format_string(*format, &count), count < 0)
 			return (-1);
 		format++;
 	}

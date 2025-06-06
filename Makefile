@@ -1,38 +1,3 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror #-I./libft
-
-SRCS:= ft_printf.c ft_putchars.c ft_puthexa.c \
-	ft_putints.c ft_uitoa.c parser.c specifiers.c validate.c
-OBJS:= $(SRCS:%.c=%.o)
-
-NAME = libftprintf.a
-LIBFTNAME = .libft/libft.a
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(NAME): $(OBJS) $(LIBFTNAME)
-	ar -x $(LIBFTNAME)
-	ar rcs $(NAME) $(OBJS) *.o
-
-$(LIBFTNAME):
-	$(MAKE) all -C ./libft
-	@cp ./libft/libft.a $(LIBFTNAME)
-
-all: $(NAME)
-
-clean:
-	$(MAKE) clean -C ./libft
-	@rm -f $(OBJS) *.o
-
-fclean: clean
-	$(MAKE) fclean -C ./libft
-	@rm -f $(NAME) $(LIBFTNAME)
-
-re: clean fclean all
-
-.PHONY: all clean fclean re
-
 NAME = libftprintf.a
 SCRS = $(wildcard *.c)
 CFLAGS = -Wall -Werror -Wextra
@@ -64,9 +29,5 @@ fclean: clean
 	@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
-
-run: $(NAME)
-	@cc $(CFLAGS) $(OBJ) $(LIBFT) -o main
-	./main
 
 .PHONY: all clean fclean re
