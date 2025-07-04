@@ -1,0 +1,21 @@
+
+* creating variables for repeation
+
+* using pattern for creating variables
+
+* pattern rule
+
+* first rule - make will always execute when calling make command
+
+* phony rules - eventhough project has the folder with same name, make will run this rule for updating corresponding targets
+
+* recursive makefiles invokation
+	e.g: clean
+	clean:
+		# run clean command in libft sub directory
+		# "-C ./libft" means change to libft
+		$(MAKE) clean -C ./libft 
+		# run following command in current working directory
+		rm -f $(OBJS) 
+
+		
