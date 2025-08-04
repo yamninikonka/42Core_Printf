@@ -1,5 +1,0 @@
-10.05.25:
----------
-post increment: ptr++   --> return ptr++; it returns current address and increment later, calling in an function argument has no effect
-pre increment: ptr + 1  --> return ptr + 1; it returns the incremented address or points the ptr to next address
--------------------------------------------------------------------------------------------------------------------------------------

@@ -1,4 +1,0 @@
-
-
-27.04.25:
-clang -Wextra -Wall -Werror -g3 -fsanitize=address main.c libft.a -o user_exe
